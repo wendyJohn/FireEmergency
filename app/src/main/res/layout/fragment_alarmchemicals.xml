@@ -1,0 +1,131 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:id="@+id/ryout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_size_45"
+        android:background="@color/text_blue">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/widget_size_45"
+            android:layout_height="@dimen/widget_size_45"
+            android:background="@color/text_blue"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tl_back"
+                android:layout_width="@dimen/widget_size_20"
+                android:layout_height="@dimen/widget_size_20"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/widget_size_10"
+                android:src="@drawable/back_icon" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="报警信息"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_16" />
+
+        <RelativeLayout
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/text_blue"
+           >
+
+            <ImageView
+                android:id="@+id/search_image"
+                android:layout_width="@dimen/widget_size_26"
+                android:layout_height="@dimen/widget_size_26"
+                android:layout_marginRight="@dimen/widget_size_10"
+                android:src="@drawable/search_icon" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/linyears"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/ryout"-->
+        <!--android:visibility="gone"-->
+        <!--android:background="@color/text_blue">-->
+
+
+        <!--<AutoCompleteTextView-->
+            <!--android:id="@+id/search_edit"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="@dimen/widget_size_10"-->
+            <!--android:layout_marginTop="@dimen/widget_size_5"-->
+            <!--android:layout_marginRight="@dimen/widget_size_60"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_toRightOf="@id/back"-->
+            <!--android:background="@drawable/search_background"-->
+            <!--android:drawablePadding="@dimen/widget_size_6"-->
+            <!--android:hint="请输入需要查找危化品柜的名称"-->
+            <!--android:paddingLeft="@dimen/widget_size_10"-->
+            <!--android:singleLine="true"-->
+            <!--android:textColorHint="@color/gray_bold"-->
+            <!--android:textSize="@dimen/text_size_16" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/cancel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_marginRight="@dimen/widget_size_10"-->
+            <!--android:background="@drawable/searchs_icon" />-->
+
+    <!--</RelativeLayout>-->
+
+    <com.sanleng.sl.fireemergency.mvp.widget.view.TabIndicatorView
+        android:id="@+id/tab_indicator_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_size_35"
+        android:layout_below="@id/ryout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="@dimen/widget_size_6"
+        android:layout_marginRight="10dp"
+        app:tabCheckBGcolor="#5765aa"
+        app:tabCheckedTextColor="#efffff"
+        app:tabCornerRadiu="10"
+        app:tabUnCheckBGcolor="#5765aa"
+        app:tabUnCheckedTextColor="#5765aa" />
+
+    <ListView
+        android:id="@+id/alarmlistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_indicator_view"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/widget_size_5"
+        android:cacheColorHint="#00000000"
+        android:divider="@null"
+        android:dividerHeight="1.0px"
+        android:drawSelectorOnTop="false"
+        android:listSelector="@android:color/transparent" />
+
+    <ImageView
+        android:id="@+id/nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/nodata" />
+
+</RelativeLayout>

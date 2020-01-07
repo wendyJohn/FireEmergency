@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 首頁功能 -->
+    <string-array name="myfunction_home">
+        <item>电气火灾</item>
+        <item>水系统</item>
+        <item>燃气监测</item>
+        <item>火灾报警</item>
+        <item>视频监控</item>
+        <item>巡查记录</item>
+        <item>巡查点扫描</item>
+        <item>巡查点位</item>
+        <item>隐患整改</item>
+    </string-array>
+
+    <string-array name="myfunction_home_icon">
+        <item>@drawable/funa_icon</item>
+        <item>@drawable/funb_icon</item>
+        <item>@drawable/func_icon</item>
+        <item>@drawable/fund_icon</item>
+        <item>@drawable/fune_icon</item>
+        <item>@drawable/funf_icon</item>
+        <item>@drawable/fung_icon</item>
+        <item>@drawable/funh_icon</item>
+        <item>@drawable/funi_icon</item>
+    </string-array>
+</resources>

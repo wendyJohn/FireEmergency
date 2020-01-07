@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="text_black">#808080</color>
+
+    <color name="drawer_header_text">#2c2c2c</color>
+    <color name="black">#000000</color>
+    <color name="drawer_item_bg_p">#e8e8e8</color>
+    <color name="drawer_item_bg_n">#fffff9</color>
+
+    <color name="login_btn">#3DB9FF</color>
+    <color name="login_btn_press">#1679A5</color>
+
+    <color name="content_color">#F3F3F3</color>
+    <color name="transparent">#00000000</color>
+    <!--title颜色-->
+    <color name="title_text_color">#43413f</color>
+    <!--Dialog线颜色-->
+    <color name="dialog_line_color">#e7e7e7</color>
+    <!--红色按钮颜色-->
+    <color name="button_color">#f57550</color>
+
+    <!-- 黄色颜色 -->
+    <color name="yellow_color">#f8c255</color>
+    <!-- 红色颜色 -->
+    <color name="red_color">#FFFD3B30</color>
+    <!--footbar Text-->
+    <color name="footbar_text_color">#7d7d7d</color>
+
+    <color name="zmcx_orange_color">#f29200</color>
+    <!--版本信息字体颜色-->
+    <color name="versioninfo_text_color">#666666</color>
+    <!--公共按钮-->
+    <color name="button_color_n">#e46546</color>
+    <color name="button_color_p">#f37556</color>
+    <!--吐槽字体颜色-->
+    <color name="tuskkomi_et_textcolor">#707070</color>
+    <!--搜索输入框颜色-->
+    <color name="search_et_bg_color">#d2d2d2</color>
+
+    <color name="black_text_color">#333333</color>
+    <color name="black_wlt_color">#666666</color>
+    <color name="gray_text_color">#999999</color>
+
+    <!--APP基本色调-->
+    <color name="app_base_color">#FFF27556</color>
+    <color name="register_text_color">#969696</color>
+
+    <!--sideLetterbar-->
+    <color name="gray">#8c8c8c</color>
+    <color name="gray_deep">#5c5c5c</color>
+    <color name="alpha_gray">#CC646464</color>
+    <color name="theme_gray">#646464</color>
+
+    <!--食安卫士信息-->
+    <color name="saws_tel_btn_color">#ffac51</color>
+    <color name="saws_message_btn_color">#f57550</color>
+    <color name="province_line_border">#B8B8B8</color>
+
+    <!--专题详情-->
+    <color name="special_bg">#FFF2F2F2</color>
+    <color name="sing_bg_color">#eeeeee</color>
+    <!--确认订单-->
+    <color name="duancode_line_color">#dbdbdb</color>
+
+    <!--关于我们-->
+    <color name="about_text_color">#58504e</color>
+
+    <!--产品详情-->
+    <color name="product_detail_rb_bg_color">#cbcbcb</color>
+    <color name="product_bottom_shopcar_bg_color">#d5d5d5</color>
+
+    <!--社区详情输入框-->
+    <color name="board_et_bg_color">#b9bbbe</color>
+
+    <!--删除color-->
+    <color name="delete_text_color">#0090ff</color>
+    <color name="version_background">#b0000000</color>
+
+    <color name="red">#fe0202</color>
+    <color name="text_blue">#193862</color>
+    <color name="buttonColor">#FF6600</color>
+    <color name="buttonBg">#016838</color>
+
+    <color name="login_b">#216193</color>
+    <!-- 淡灰色 -->
+    <color name="grayish">#DCDCDC</color>
+    <color name="login_wj">#68fff6</color>
+
+    <color name="bg_tab_unselect">#666666</color>
+    <color name="bg_tab">#f9f9f9</color>
+    <color name="text_blues">#5485f5</color>
+    <color name="background">#e5e5e5</color>
+    <!-- 任务处理时按钮的颜色 -->
+    <color name="detail_btn">#E0E0E0</color>
+    <color name="detacolor">#ffffff</color>
+    <color name="bar_color">#232325</color>
+    <color name="lightgray">#D3D3D3</color>
+    <color name="mine_logout_nor">#FF0033</color>
+    <color name="blue">#0066dd</color>
+    <color name="text_gray">#A6A6A6</color>
+    <color name="gray_thin">#e5e5e5</color>
+    <color name="gray_bold">#FF606060</color>
+    <color name="normal_bg_color">#f0f0f0</color>
+    <color name="tab_title_pressed_color">#16982b</color>
+    <color name="tab_title_normal_color">#262726</color>
+
+    <color name="copa">#FF6347</color>
+    <color name="copb">#FF8C00</color>
+    <color name="copc">#3CBAFF</color>
+</resources>

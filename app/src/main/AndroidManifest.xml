@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sanleng.sl.fireemergency">
+
+    <!-- NFC权限 -->
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <!--相机权限-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--写入SD卡的权限：如果你希望保存相机拍照后的照片-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--读取SD卡的权限:打开相册选取图片所必须的权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="com.sanleng.dangerouscabinet.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!--获取手机录音机使用权限，听写、识别、语义理解需要用到此权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="com.permissions.MYF_BROADCAST" />
+
+    <permission
+        android:name="com.permissions.MYF_BROADCAST"
+        android:protectionLevel="signature" />
+
+
+    <application
+        android:name=".mvp.ui.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logos"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:node="replace"
+        tools:replace="android:icon">
+        <activity android:name=".mvp.ui.login.activity.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 首頁 -->
+        <activity android:name=".mvp.ui.MainActivity" />
+        <!-- 电气火灾 -->
+        <activity android:name=".mvp.ui.electricalfire.activity.RealDataActivity" />
+        <activity android:name=".mvp.ui.electricalfire.activity.RealDataItemActivity" />
+        <!-- 水系统 -->
+        <activity android:name=".mvp.ui.watersystem.activity.WaterSystemActivity" />
+        <!-- 燃气监测 -->
+        <activity android:name=".mvp.ui.gas.activity.GasMonitoringActivity" />
+        <!-- 火灾报警 -->
+        <activity android:name=".mvp.ui.monitoring.activity.MonitoringActivity" />
+        <!-- 视频监控 -->
+        <activity
+            android:name=".mvp.ui.video.activity.VideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <!-- 巡查点扫描 -->
+        <activity android:name=".mvp.ui.nfc.activity.NfcPointActivity" />
+
+        <!-- 巡查记录 -->
+        <activity android:name=".mvp.ui.patrol.activity.PatrolHandleActivity" />
+        <!-- 巡查记录 -->
+        <activity android:name=".mvp.ui.patrol.activity.PhotoActivity" />
+
+        <!-- 巡查上报 -->
+        <activity android:name=".mvp.ui.patrol.activity.PointPatrolActivity" />
+
+        <!-- 隐患整改 -->
+        <activity android:name=".mvp.ui.hiddendanger.activity.RectificationActivity" />
+        <!-- 隐患整改上传 -->
+        <activity android:name=".mvp.ui.hiddendanger.activity.RectificationitemActivity" />
+
+        <!-- 巡查点位 -->
+        <activity android:name=".mvp.ui.patrol.activity.DevicePointActivity" />
+
+        <!-- 密码修改 -->
+        <activity android:name=".mvp.ui.mine.activity.PwdChangeActivity" />
+
+
+
+        <service android:name=".mvp.service.UpdateService" />
+
+<!--        <provider-->
+<!--            android:name=".mvp.widget.view.UpdateFileProvider"-->
+<!--            android:authorities="${applicationId}.fileProvider"-->
+<!--            android:exported="false"-->
+<!--            android:grantUriPermissions="true">-->
+<!--            <meta-data-->
+<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
+<!--                android:resource="@xml/new_app_file_paths" />-->
+<!--        </provider>-->
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.sanleng.sl.fireemergency.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+    </application>
+
+</manifest>
