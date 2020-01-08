@@ -9,5 +9,5 @@ public interface AiddendContract {
 
     void Success(List<ARectBean.DataBean.ListBean> list, int size, String scope);
     void Failed();
-
+    void Timeout();
 }

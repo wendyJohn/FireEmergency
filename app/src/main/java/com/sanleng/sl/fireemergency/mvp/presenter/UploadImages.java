@@ -56,8 +56,9 @@ public class UploadImages {
                         patroContract.Failed();
                     }
 
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
+                    patroContract.Timeout();
                 }
             }
 

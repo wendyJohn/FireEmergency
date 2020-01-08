@@ -18,6 +18,8 @@ import com.sanleng.sl.fireemergency.mvp.bean.ReadTimeItems;
 import com.sanleng.sl.fireemergency.mvp.presenter.RealDataPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.RealItemsContract;
 import com.sanleng.sl.fireemergency.mvp.ui.electricalfire.adapter.RealDataItemAdapter;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.List;
 
@@ -128,6 +130,21 @@ public class RealDataItemActivity extends BaseActivity implements OnClickListene
         dataitemlistviewc.setAdapter(realDataItemAdapterc);
         RealDataItemAdapter realDataItemAdapterd = new RealDataItemAdapter(RealDataItemActivity.this, list_voltage);
         dataitemlistviewd.setAdapter(realDataItemAdapterd);
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 
 }

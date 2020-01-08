@@ -1,6 +1,7 @@
 package com.sanleng.sl.fireemergency.mvp.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.sanleng.sl.fireemergency.mvp.bean.PatrolRecordBean;
 import com.sanleng.sl.fireemergency.mvp.bean.ReadTimeItems;
@@ -11,6 +12,7 @@ import com.sanleng.sl.fireemergency.mvp.http.Request_Interface;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.PatrolRecord;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.RealItemsContract;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.RealTimeData;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
 import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.ArrayList;
@@ -59,8 +61,10 @@ public class PatrolRecordPresenter {
                     }
                     patrolRecord.PatrolRecordSuccess(mylist, size);
 
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
+                    System.out.println("=============登录超时请重新登录============");
+                    patrolRecord.Timeout();
                 }
             }
 

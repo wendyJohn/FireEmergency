@@ -118,6 +118,7 @@ public interface Request_Interface {
             public void log(String message) {
                 //打印retrofit日志
                 Log.e("RetrofitLog", "retrofitBack = " + message);
+                System.out.println("=============请求日志==========="+ message);
             }
         });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

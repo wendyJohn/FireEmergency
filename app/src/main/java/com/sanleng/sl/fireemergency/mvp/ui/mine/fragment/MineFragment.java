@@ -200,7 +200,6 @@ public class MineFragment extends BaseFragment implements OnClickListener, Updat
             case R.id.login_out:
                 // 清空sharepre中的用户名和密码
                 PreferenceUtils.setString(getActivity(), "FireEmergency_usernames", "");
-                PreferenceUtils.setString(getActivity(), "FireEmergency_passwords", "");
                 Intent loginOutIntent = new Intent(getActivity(), LoginActivity.class);
                 loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(loginOutIntent);
@@ -266,6 +265,16 @@ public class MineFragment extends BaseFragment implements OnClickListener, Updat
     @Override
     public void UpdateFailed() {
         new SVProgressHUD(getActivity()).showErrorWithStatus("更新失败");
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        PreferenceUtils.setString(getActivity(), "FireEmergency_usernames", "");
+        Intent loginOutIntent = new Intent(getActivity(), LoginActivity.class);
+        loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginOutIntent);
+        getActivity().finish();
     }
 
     public static int getLocalVersion(Context ctx) {

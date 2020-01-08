@@ -1,6 +1,7 @@
 package com.sanleng.sl.fireemergency.mvp.ui.watersystem.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,7 +19,9 @@ import com.sanleng.sl.fireemergency.mvp.base.BaseActivity;
 import com.sanleng.sl.fireemergency.mvp.bean.WaterSystem;
 import com.sanleng.sl.fireemergency.mvp.presenter.WaterSystemPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.WaterSystemContract;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
 import com.sanleng.sl.fireemergency.mvp.ui.watersystem.adapter.WaterSystemAdapter;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,6 +182,21 @@ public class WaterSystemActivity extends BaseActivity implements OnClickListener
     @Override
     public void WaterSystemFailed() {
         new SVProgressHUD(WaterSystemActivity.this).showSuccessWithStatus("数据加载失败");
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 
     @Override

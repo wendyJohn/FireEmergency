@@ -32,8 +32,9 @@ public class PassPresenter {
                     if(response.body().getStatus().equals("0")) {
                         passContract.Success(response.body().getMsg());
                     }
-                } catch (Exception e) {
+                }catch (NullPointerException e) {
                     e.printStackTrace();
+                    passContract.Timeout();
                 }
             }
 

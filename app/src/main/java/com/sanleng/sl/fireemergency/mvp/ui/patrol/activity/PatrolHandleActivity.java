@@ -1,18 +1,23 @@
 package com.sanleng.sl.fireemergency.mvp.ui.patrol.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.sanleng.sl.fireemergency.R;
 import com.sanleng.sl.fireemergency.mvp.base.BaseActivity;
 import com.sanleng.sl.fireemergency.mvp.bean.PatrolRecordBean;
 import com.sanleng.sl.fireemergency.mvp.presenter.PatrolRecordPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.PatrolRecord;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
 import com.sanleng.sl.fireemergency.mvp.ui.patrol.adapter.PatrolRecordAdapter;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,5 +131,20 @@ public class PatrolHandleActivity extends BaseActivity implements OnClickListene
     @Override
     public void PatrolRecordFailed() {
 
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 }

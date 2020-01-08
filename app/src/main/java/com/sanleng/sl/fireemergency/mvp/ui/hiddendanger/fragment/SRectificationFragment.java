@@ -3,6 +3,7 @@ package com.sanleng.sl.fireemergency.mvp.ui.hiddendanger.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.sanleng.sl.fireemergency.R;
 import com.sanleng.sl.fireemergency.mvp.base.BaseFragment;
 import com.sanleng.sl.fireemergency.mvp.bean.RectificationBean;
@@ -18,6 +20,8 @@ import com.sanleng.sl.fireemergency.mvp.presenter.HiddendPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.HiddendContract;
 import com.sanleng.sl.fireemergency.mvp.ui.hiddendanger.activity.RectificationitemActivity;
 import com.sanleng.sl.fireemergency.mvp.ui.hiddendanger.adapter.SRectificationAdapter;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +145,21 @@ public class SRectificationFragment extends BaseFragment implements HiddendContr
 
     @Override
     public void Failed() {
+        new SVProgressHUD(getActivity()).showErrorWithStatus("加载失败");
+    }
 
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getActivity()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getActivity(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getActivity(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                getActivity().finish();
+            }
+        }, 2000);
     }
 }

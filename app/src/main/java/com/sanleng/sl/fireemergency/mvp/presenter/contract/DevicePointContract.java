@@ -9,4 +9,5 @@ public interface DevicePointContract {
 
     void Success(List<Dpoint.DataBean.ListBean> list, int size);
     void Failed();
+    void Timeout();
 }

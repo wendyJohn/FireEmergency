@@ -67,13 +67,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
         //本地图片数据（资源文件）
         List<Integer> list = new ArrayList<>();
         list.add(R.mipmap.banner);
-        list.add(R.mipmap.banner);
-        list.add(R.mipmap.banner);
+//        list.add(R.mipmap.banner);
+//        list.add(R.mipmap.banner);
         //本地数据（资源文件）
         List<String> titlelist = new ArrayList<>();
         titlelist.add("南京交通职业技术学院智慧消防");
-        titlelist.add("智慧消防知识");
-        titlelist.add("智慧消防大数据");
+//        titlelist.add("智慧消防知识");
+//        titlelist.add("智慧消防大数据");
         banner.setImages(list)
                 .setImageLoader(new GlideImageLoader())
                 .setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)  //设置banner样式

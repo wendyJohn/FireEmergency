@@ -1,7 +1,9 @@
 package com.sanleng.sl.fireemergency.mvp.ui.hiddendanger.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.sanleng.sl.fireemergency.R;
 import com.sanleng.sl.fireemergency.mvp.base.BaseFragment;
 import com.sanleng.sl.fireemergency.mvp.bean.ARectBean;
@@ -19,6 +22,8 @@ import com.sanleng.sl.fireemergency.mvp.presenter.HiddendPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.AiddendContract;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.HiddendContract;
 import com.sanleng.sl.fireemergency.mvp.ui.hiddendanger.adapter.ARectificationAdapter;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,19 +79,19 @@ public class ARectificationFragment extends BaseFragment implements AiddendContr
 
     //加载数据
     private void loadData() {
-        HiddendPresenter.getAHiddend(ARectificationFragment.this,getActivity(),pageNo+"",scope);
+        HiddendPresenter.getAHiddend(ARectificationFragment.this, getActivity(), pageNo + "", scope);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void Success(List<ARectBean.DataBean.ListBean> list, int size,String scope) {
-        if(scope.equals("day")){
+    public void Success(List<ARectBean.DataBean.ListBean> list, int size, String scope) {
+        if (scope.equals("day")) {
             problemdescription.setText("今日共有" + size + "处已整改隐患");
         }
-        if(scope.equals("week")){
+        if (scope.equals("week")) {
             problemdescription.setText("本周共有" + size + "处已整改隐患");
         }
-        if(scope.equals("month")){
+        if (scope.equals("month")) {
             problemdescription.setText("本月共有" + size + "处已整改隐患");
         }
         allList.clear();
@@ -116,7 +121,7 @@ public class ARectificationFragment extends BaseFragment implements AiddendContr
                 if (is_divPage && scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && pageNo <= allpage
                         && finish) {
                     finish = false;
-                    HiddendPresenter.getAHiddend(ARectificationFragment.this,getActivity(),pageNo+"",scope);
+                    HiddendPresenter.getAHiddend(ARectificationFragment.this, getActivity(), pageNo + "", scope);
                 } else if (pageNo > allpage && finish) {
                     finish = false;
                     // 如果pageNo>allpage则表示，服务端没有更多的数据可供加载了。
@@ -135,7 +140,22 @@ public class ARectificationFragment extends BaseFragment implements AiddendContr
 
     @Override
     public void Failed() {
+        new SVProgressHUD(getActivity()).showErrorWithStatus("加载失败");
+    }
 
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getActivity()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getActivity(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getActivity(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                getActivity().finish();
+            }
+        }, 2000);
     }
 
     /**

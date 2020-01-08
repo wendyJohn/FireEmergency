@@ -49,8 +49,9 @@ public class GasPresenter {
                         //登录超时
                         gasContract.GasFailed();
                     }
-                } catch (Exception e) {
+                }catch (NullPointerException e) {
                     e.printStackTrace();
+                    gasContract.Timeout();
                 }
             }
 

@@ -8,5 +8,5 @@ import java.util.List;
 public interface PatrolRecord {
     void PatrolRecordSuccess(List< PatrolRecordBean.DataBean.ListBean> list, int size);
     void PatrolRecordFailed();
-
+    void Timeout();
 }

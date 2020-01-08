@@ -33,8 +33,9 @@ public class UpdatePointPresenter {
                 try {
                     String msg = response.body().getMsg();
                     updatePointContract.UpdateSuccess(msg);
-                } catch (Exception e) {
+                }catch (NullPointerException e) {
                     e.printStackTrace();
+                    updatePointContract.Timeout();
                 }
             }
 

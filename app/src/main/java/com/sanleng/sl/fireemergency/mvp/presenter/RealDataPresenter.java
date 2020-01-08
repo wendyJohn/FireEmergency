@@ -43,7 +43,6 @@ public class RealDataPresenter {
                         for (int i = 0; i < response.body().getData().getList().size(); i++) {
                             RealDataBean bean = new RealDataBean();
                             String device_id = response.body().getData().getList().get(i).getDevice_id();
-                            String unit_name = response.body().getData().getList().get(i).getUnit_name();
                             String build_name = response.body().getData().getList().get(i).getBuild_name();
                             String device_name = response.body().getData().getList().get(i).getDevice_name();
                             String state = response.body().getData().getList().get(i).getState();
@@ -61,8 +60,9 @@ public class RealDataPresenter {
                     } else {
                         realTimeData.RealTimeDataFailed();
                     }
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
+                    realTimeData.Timeout();
                 }
             }
 

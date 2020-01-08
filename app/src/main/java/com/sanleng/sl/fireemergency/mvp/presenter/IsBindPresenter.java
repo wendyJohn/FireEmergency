@@ -47,8 +47,9 @@ public class IsBindPresenter {
                     }else{
                         isbindContract.Failed();
                     }
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
+                    isbindContract.Timeout();
                 }
             }
 

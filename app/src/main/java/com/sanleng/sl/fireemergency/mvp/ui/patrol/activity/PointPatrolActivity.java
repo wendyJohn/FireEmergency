@@ -46,8 +46,10 @@ import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.sanleng.sl.fireemergency.R;
 import com.sanleng.sl.fireemergency.mvp.presenter.UploadImages;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.PatroContract;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
 import com.sanleng.sl.fireemergency.mvp.util.Bimps;
 import com.sanleng.sl.fireemergency.mvp.util.FileUtils;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 import com.sanleng.sl.fireemergency.mvp.util.StringUtils;
 import com.sanleng.sl.fireemergency.mvp.util.TimePickDialog;
 
@@ -264,6 +266,21 @@ public class PointPatrolActivity extends AppCompatActivity implements OnClickLis
     public void Failed() {
         new SVProgressHUD(PointPatrolActivity.this).showErrorWithStatus("上传失败");
 
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

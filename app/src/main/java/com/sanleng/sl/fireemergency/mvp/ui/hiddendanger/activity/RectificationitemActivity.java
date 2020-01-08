@@ -46,11 +46,14 @@ import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.sanleng.sl.fireemergency.R;
 import com.sanleng.sl.fireemergency.mvp.presenter.UploadRectification;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.RectificationContract;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
 import com.sanleng.sl.fireemergency.mvp.ui.patrol.activity.PhotoActivity;
 import com.sanleng.sl.fireemergency.mvp.ui.patrol.activity.PointPatrolActivity;
 import com.sanleng.sl.fireemergency.mvp.util.Bimps;
 import com.sanleng.sl.fireemergency.mvp.util.FileUtils;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 import com.sanleng.sl.fireemergency.mvp.util.Premissions;
+import com.sanleng.sl.fireemergency.mvp.util.StringUtils;
 import com.sanleng.sl.fireemergency.mvp.widget.dialog.PromptDialog;
 
 import java.io.File;
@@ -166,13 +169,22 @@ public class RectificationitemActivity extends Activity implements OnClickListen
     // 提交
     public void doCommit() {
         String desc = info_editText.getText().toString().trim();
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i < Bimps.drr.size(); i++) {
-            String Str = Bimps.drr.get(i).substring(Bimps.drr.get(i).lastIndexOf("/") + 1,
-                    Bimps.drr.get(i).lastIndexOf("."));
-            list.add(FileUtils.SDPATH + Str + ".JPEG");
+        if (Bimps.drr.size() > 0) {
+            if (!StringUtils.isEmpty(desc)) {
+            List<String> list = new ArrayList<String>();
+            for (int i = 0; i < Bimps.drr.size(); i++) {
+                String Str = Bimps.drr.get(i).substring(Bimps.drr.get(i).lastIndexOf("/") + 1,
+                        Bimps.drr.get(i).lastIndexOf("."));
+                list.add(FileUtils.SDPATH + Str + ".JPEG");
+            }
+            UploadRectification.uploadImage(RectificationitemActivity.this, getApplicationContext(), Ids, list, desc);
+            } else {
+                new SVProgressHUD(RectificationitemActivity.this).showErrorWithStatus("巡查描述不能为空");
+                return;
+            }
+        }else{
+            new SVProgressHUD(RectificationitemActivity.this).showErrorWithStatus("照片不能为空");
         }
-        UploadRectification.uploadImage(RectificationitemActivity.this, getApplicationContext(), Ids, list, desc);
     }
 
     @Override
@@ -209,6 +221,21 @@ public class RectificationitemActivity extends Activity implements OnClickListen
     @Override
     public void Failed() {
         new SVProgressHUD(RectificationitemActivity.this).showErrorWithStatus("处理上传失败");
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 
     @Override

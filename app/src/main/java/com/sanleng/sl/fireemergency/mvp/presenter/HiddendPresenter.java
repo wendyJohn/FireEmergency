@@ -110,8 +110,9 @@ public class HiddendPresenter {
                         mylist.add(bean);
                     }
                     hiddendContract.Success(mylist,size,scope);
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
+                    hiddendContract.Timeout();
                 }
             }
 

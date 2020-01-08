@@ -5,4 +5,5 @@ public interface RectificationContract {
 
     void Success();
     void Failed();
+    void Timeout();
 }

@@ -57,8 +57,9 @@ public class UploadRectification {
                         rectificationContract.Failed();
                     }
 
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
+                    rectificationContract.Timeout();
                 }
             }
 

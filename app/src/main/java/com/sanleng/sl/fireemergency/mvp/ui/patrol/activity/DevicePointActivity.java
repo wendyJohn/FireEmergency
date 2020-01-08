@@ -2,6 +2,7 @@ package com.sanleng.sl.fireemergency.mvp.ui.patrol.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,8 +17,10 @@ import com.sanleng.sl.fireemergency.mvp.bean.Dpoint;
 import com.sanleng.sl.fireemergency.mvp.bean.RectificationBean;
 import com.sanleng.sl.fireemergency.mvp.presenter.PointPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.DevicePointContract;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
 import com.sanleng.sl.fireemergency.mvp.ui.nfc.activity.NfcPointActivity;
 import com.sanleng.sl.fireemergency.mvp.ui.patrol.adapter.DevicePointAdapter;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,6 +151,21 @@ public class DevicePointActivity extends AppCompatActivity implements OnClickLis
     @Override
     public void Failed() {
         new SVProgressHUD(DevicePointActivity.this).showErrorWithStatus("加载失败");
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 
 }

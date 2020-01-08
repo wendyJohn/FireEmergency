@@ -21,7 +21,9 @@ import com.sanleng.sl.fireemergency.mvp.presenter.IsBindPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.UpdatePointPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.IsbindContract;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.UpdatePointContract;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
 import com.sanleng.sl.fireemergency.mvp.ui.patrol.activity.PointPatrolActivity;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 import com.sanleng.sl.fireemergency.mvp.util.Utils;
 
 /**
@@ -164,5 +166,20 @@ public class NfcPointActivity extends BaseActivity implements OnClickListener, I
     @Override
     public void Failed() {
         new SVProgressHUD(NfcPointActivity.this).showErrorWithStatus("请求异常,请检查标签是否可用");
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 }

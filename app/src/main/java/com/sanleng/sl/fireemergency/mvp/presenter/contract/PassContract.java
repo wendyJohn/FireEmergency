@@ -5,4 +5,5 @@ public interface PassContract {
 
     void Success(String msg);
     void Failed();
+    void Timeout();
 }

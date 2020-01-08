@@ -37,8 +37,9 @@ public class UpdatePresenter {
                         updateContract.UpdateSuccess(response.body().getData().getContent().get(i).getAppVersion(), response.body().getData().getContent().get(i).getDownloadUrl(), response.body().getData().getContent().get(i).getAppDescribe());
                         PreferenceUtils.setString(context, "download", "http://" + response.body().getData().getContent().get(i).getDownloadUrl());
                     }
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
+                    updateContract.Timeout();
                 }
             }
 

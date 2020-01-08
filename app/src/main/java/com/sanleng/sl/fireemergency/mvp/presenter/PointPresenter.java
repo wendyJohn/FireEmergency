@@ -51,8 +51,9 @@ public class PointPresenter {
                         mylist.add(bean);
                     }
                     devicePointContract.Success(mylist,size);
-                } catch (Exception e) {
+                }  catch (NullPointerException e) {
                     e.printStackTrace();
+                    devicePointContract.Timeout();
                 }
             }
 

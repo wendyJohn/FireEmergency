@@ -1,6 +1,7 @@
 package com.sanleng.sl.fireemergency.mvp.ui.gas.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,12 +13,15 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.sanleng.sl.fireemergency.R;
 import com.sanleng.sl.fireemergency.mvp.base.BaseActivity;
 import com.sanleng.sl.fireemergency.mvp.bean.Gas;
 import com.sanleng.sl.fireemergency.mvp.presenter.GasPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.GasContract;
 import com.sanleng.sl.fireemergency.mvp.ui.gas.adapter.GasMonitoringAdapter;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -175,5 +179,20 @@ public class GasMonitoringActivity extends BaseActivity implements OnClickListen
     @Override
     public void GasFailed() {
 
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 }

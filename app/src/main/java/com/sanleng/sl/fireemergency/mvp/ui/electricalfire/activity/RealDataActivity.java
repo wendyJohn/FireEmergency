@@ -3,6 +3,7 @@ package com.sanleng.sl.fireemergency.mvp.ui.electricalfire.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -21,6 +22,8 @@ import com.sanleng.sl.fireemergency.mvp.bean.RealDataBean;
 import com.sanleng.sl.fireemergency.mvp.presenter.RealDataPresenter;
 import com.sanleng.sl.fireemergency.mvp.presenter.contract.RealTimeData;
 import com.sanleng.sl.fireemergency.mvp.ui.electricalfire.adapter.RealDataAdapter;
+import com.sanleng.sl.fireemergency.mvp.ui.login.activity.LoginActivity;
+import com.sanleng.sl.fireemergency.mvp.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +83,7 @@ public class RealDataActivity extends BaseActivity implements OnClickListener, R
 
     @Override
     protected void initData() {
-        RealDataPresenter.getRealTimeData(RealDataActivity.this,getApplicationContext(),pageNo+"");
+        RealDataPresenter.getRealTimeData(RealDataActivity.this, getApplicationContext(), pageNo + "");
     }
 
     @Override
@@ -116,7 +119,7 @@ public class RealDataActivity extends BaseActivity implements OnClickListener, R
                 if (is_divPage && scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && pageNo <= allpage
                         && finish) {
                     finish = false;
-                    RealDataPresenter.getRealTimeData(RealDataActivity.this,getApplicationContext(),pageNo+"");
+                    RealDataPresenter.getRealTimeData(RealDataActivity.this, getApplicationContext(), pageNo + "");
                 } else if (pageNo > allpage && finish) {
                     finish = false;
                     // 如果pageNo>allpage则表示，服务端没有更多的数据可供加载了。
@@ -165,19 +168,24 @@ public class RealDataActivity extends BaseActivity implements OnClickListener, R
         addData(size, list);
     }
 
-    @Override
-    public void RealTimeDatasSuccess(List<RealDataBean> list, int size) {
-
-    }
-
-    @Override
-    public void RealDataItemSuccess(List<ReadTimeItemData.DataBean.ElectricalDetectorInfosBean> list_temperature, List<ReadTimeItemData.DataBean.ElectricalDetectorInfosBean> list_current, List<ReadTimeItemData.DataBean.ElectricalDetectorInfosBean> list_residualcurrent, List<ReadTimeItemData.DataBean.ElectricalDetectorInfosBean> list_voltage, String buildids, String floorids, String electricalDetectorInfos) {
-
-    }
-
 
     @Override
     public void RealTimeDataFailed() {
         new SVProgressHUD(RealDataActivity.this).showErrorWithStatus("数据请求失败");
+    }
+
+    @Override
+    public void Timeout() {
+        // 清空sharepre中的用户名和密码
+        new SVProgressHUD(getApplicationContext()).showInfoWithStatus("登录超时，请重新登录");
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                PreferenceUtils.setString(getApplicationContext(), "FireEmergency_usernames", "");
+                Intent loginOutIntent = new Intent(getApplicationContext(), LoginActivity.class);
+                loginOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginOutIntent);
+                finish();
+            }
+        }, 2000);
     }
 }

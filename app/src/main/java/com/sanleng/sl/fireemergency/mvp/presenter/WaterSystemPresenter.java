@@ -69,8 +69,9 @@ public class WaterSystemPresenter {
                         //登录超时
                         waterSystemContract.WaterSystemFailed();
                     }
-                } catch (Exception e) {
+                } catch (NullPointerException e) {
                     e.printStackTrace();
+                    waterSystemContract.Timeout();
                 }
             }
 
